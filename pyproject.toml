@@ -15,6 +15,7 @@ dependencies = [
     "bitsandbytes==0.45.0",
     "scipy==1.13.0",
     "peft==0.14.0",
+    "torch-adopt @ git+https://github.com/iShohei220/adopt.git@c621db21481adc94769982cccd7b896464ab295e",
     "transformers @ git+https://github.com/NX-AI/transformers.git@660558dcbeca0e93b698984cc63dbdec46cdd5bd",
     "sentencepiece==0.2.0",
     "omegaconf==2.3.0",
@@ -41,8 +42,8 @@ clientapp = "flowertune_nlp.client_app:app"
 model.name = "NX-AI/xLSTM-7b"
 model.quantization = 4
 model.gradient-checkpointing = true
-model.lora.peft-lora-r = 16
-model.lora.peft-lora-alpha = 128
+model.lora.peft-lora-r = 4
+model.lora.peft-lora-alpha = 64
 train.save-every-round = 5
 train.learning-rate-max = 5e-5
 train.learning-rate-min = 1e-6
@@ -53,7 +54,7 @@ train.training-arguments.per-device-train-batch-size = 8
 train.training-arguments.gradient-accumulation-steps = 1
 train.training-arguments.logging-steps = 1
 train.training-arguments.num-train-epochs = 3
-train.training-arguments.max-steps = 5
+train.training-arguments.max-steps = 10
 train.training-arguments.save-steps = 1000
 train.training-arguments.save-total-limit = 10
 train.training-arguments.max-grad-norm = 1.0
@@ -63,7 +64,7 @@ train.training-arguments.tf32 = true
 train.training-arguments.lr-scheduler-type = "constant"
 strategy.fraction-fit = 0.25
 strategy.fraction-evaluate = 0.0
-num-server-rounds = 100
+num-server-rounds = 10
 
 [tool.flwr.app.config.static]
 dataset.name = "vicgalle/alpaca-gpt4"
@@ -73,5 +74,5 @@ default = "local-simulation"
 
 [tool.flwr.federations.local-simulation]
 options.num-supernodes = 20
-options.backend.client-resources.num-cpus = 6
+options.backend.client-resources.num-cpus = 4
 options.backend.client-resources.num-gpus = 1.0

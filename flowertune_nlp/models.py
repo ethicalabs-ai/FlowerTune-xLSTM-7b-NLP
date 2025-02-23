@@ -60,10 +60,8 @@ def get_model(model_cfg: DictConfig):
         target_modules = [
             "proj_up",
             "proj_down",
-            "q_proj",
-            "k_proj",
-            "v_proj",
-            "LinearHeadwiseExpand",
+            "proj_up_gate",
+            "out_proj",
         ],
         use_dora=True,
     )
