@@ -62,6 +62,9 @@ def get_model(model_cfg: DictConfig):
             "proj_down",
             "proj_up_gate",
             "out_proj",
+            "q_proj",
+            "k_proj",
+            "v_proj"
         ],
         use_dora=True,
     )

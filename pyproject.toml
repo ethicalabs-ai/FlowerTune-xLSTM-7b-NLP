@@ -54,7 +54,7 @@ train.training-arguments.per-device-train-batch-size = 8
 train.training-arguments.gradient-accumulation-steps = 1
 train.training-arguments.logging-steps = 1
 train.training-arguments.num-train-epochs = 3
-train.training-arguments.max-steps = 10
+train.training-arguments.max-steps = 6
 train.training-arguments.save-steps = 1000
 train.training-arguments.save-total-limit = 10
 train.training-arguments.max-grad-norm = 1.0
@@ -64,7 +64,7 @@ train.training-arguments.tf32 = true
 train.training-arguments.lr-scheduler-type = "constant"
 strategy.fraction-fit = 0.25
 strategy.fraction-evaluate = 0.0
-num-server-rounds = 10
+num-server-rounds = 50
 
 [tool.flwr.app.config.static]
 dataset.name = "vicgalle/alpaca-gpt4"
