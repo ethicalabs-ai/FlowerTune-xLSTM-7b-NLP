@@ -59,6 +59,7 @@ def get_model(model_cfg: DictConfig):
         task_type="CAUSAL_LM",
         target_modules = [
             "proj_up",
+            "proj_up_gate",
             "proj_down",
             "out_proj",
             "q_proj",
