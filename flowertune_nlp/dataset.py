@@ -8,7 +8,7 @@ from trl import DataCollatorForCompletionOnlyLM
 FDS = None  # Cache FederatedDataset
 
 
-def formatting_prompts_func(example):
+def _formatting_prompts_func(example):
     """Construct prompts."""
     output_texts = []
     # Constructing a standard Alpaca
@@ -21,6 +21,22 @@ def formatting_prompts_func(example):
         text = (
             f"{mssg}\n### Instruction:\n{example['instruction'][i]}\n"
             f"### Response: {example['response'][i]}"
+        )
+        output_texts.append(text)
+    return output_texts
+
+
+def formatting_prompts_func(example):
+    """Construct prompts."""
+    output_texts = []
+    for i in range(len(example["instruction"])):
+        text = (
+            "<|im_start|>question\n"
+            f"{example['instruction'][i]}\n\n"
+            "The answer is:\n"
+            "<|im_end|>\n"
+            "<|im_start|>answer\n"
+            f"{example['response'][i]}"
         )
         output_texts.append(text)
     return output_texts

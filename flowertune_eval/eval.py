@@ -10,9 +10,7 @@ from benchmarks import MMLU_CATEGORY, infer_mmlu
 torch.manual_seed(2024)
 
 parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--base-model-name-path", type=str, default="NX-AI/xLSTM-7b"
-)
+parser.add_argument("--base-model-name-path", type=str, default="NX-AI/xLSTM-7b")
 parser.add_argument("--run-name", type=str, default="fl")
 parser.add_argument("--peft-path", type=str, default=None)
 parser.add_argument(
