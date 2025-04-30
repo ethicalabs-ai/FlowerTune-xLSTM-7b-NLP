@@ -1,9 +1,12 @@
-peft==0.6.2
+peft==0.14.0
 pandas==2.2.2
 scikit-learn==1.5.0
 datasets==2.20.0
 sentencepiece==0.2.0
 protobuf==5.27.1
-bitsandbytes==0.43.1
+bitsandbytes==0.45.0
 hf_transfer==0.1.8
 transformers @ git+https://github.com/NX-AI/transformers.git@660558dcbeca0e93b698984cc63dbdec46cdd5bd
+mlstm_kernels==1.0.3
+xlstm==2.0.1
+torch==2.5.1

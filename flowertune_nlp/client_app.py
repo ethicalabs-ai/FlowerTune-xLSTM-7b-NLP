@@ -5,6 +5,7 @@ import warnings
 from typing import Dict, Tuple
 
 import torch
+from adopt import ADOPT
 from flwr.client import ClientApp, NumPyClient
 from flwr.common import Context
 from flwr.common.config import unflatten_dict
@@ -71,6 +72,7 @@ class FlowerClient(NumPyClient):
             self.train_cfg.learning_rate_max,
             self.train_cfg.learning_rate_min,
         )
+        optimizer = ADOPT(self.model.parameters(), lr=new_lr, decouple=True)
 
         self.training_argumnets.learning_rate = new_lr
         self.training_argumnets.output_dir = config["save_path"]
@@ -84,6 +86,7 @@ class FlowerClient(NumPyClient):
             train_dataset=self.trainset,
             formatting_func=self.formatting_prompts_func,
             data_collator=self.data_collator,
+            optimizers=(optimizer, None),
         )
 
         # Do local training

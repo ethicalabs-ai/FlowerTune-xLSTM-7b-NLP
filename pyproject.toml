@@ -15,6 +15,7 @@ dependencies = [
     "bitsandbytes==0.45.0",
     "scipy==1.13.0",
     "peft==0.14.0",
+    "torch-adopt @ git+https://github.com/iShohei220/adopt.git@c621db21481adc94769982cccd7b896464ab295e",
     "transformers @ git+https://github.com/NX-AI/transformers.git@660558dcbeca0e93b698984cc63dbdec46cdd5bd",
     "sentencepiece==0.2.0",
     "omegaconf==2.3.0",
@@ -42,14 +43,16 @@ model.name = "NX-AI/xLSTM-7b"
 model.quantization = 4
 model.gradient-checkpointing = true
 model.lora.peft-lora-r = 16
-model.lora.peft-lora-alpha = 128
-train.save-every-round = 5
-train.learning-rate-max = 5e-5
-train.learning-rate-min = 1e-6
+model.lora.peft-lora-alpha = 64
+model.lora.peft-lora-dropout = 0.075
+model.lora.peft-use-dora = true
+train.save-every-round = 10
+train.learning-rate-max = 1e-4
+train.learning-rate-min = 5e-6
 train.seq-length = 512
 train.training-arguments.output-dir = ""
 train.training-arguments.learning-rate = ""
-train.training-arguments.per-device-train-batch-size = 8
+train.training-arguments.per-device-train-batch-size = 32
 train.training-arguments.gradient-accumulation-steps = 1
 train.training-arguments.logging-steps = 1
 train.training-arguments.num-train-epochs = 3
@@ -61,9 +64,9 @@ train.training-arguments.gradient-checkpointing = true
 train.training-arguments.bf16 = true
 train.training-arguments.tf32 = true
 train.training-arguments.lr-scheduler-type = "constant"
-strategy.fraction-fit = 0.25
+strategy.fraction-fit = 0.1
 strategy.fraction-evaluate = 0.0
-num-server-rounds = 100
+num-server-rounds = 10
 
 [tool.flwr.app.config.static]
 dataset.name = "vicgalle/alpaca-gpt4"
@@ -73,5 +76,5 @@ default = "local-simulation"
 
 [tool.flwr.federations.local-simulation]
 options.num-supernodes = 20
-options.backend.client-resources.num-cpus = 6
+options.backend.client-resources.num-cpus = 4
 options.backend.client-resources.num-gpus = 1.0

@@ -29,8 +29,7 @@ def cosine_annealing(
 
 
 def get_model(model_cfg: DictConfig):
-    """Load model with appropriate quantization config and other optimizations.
-    """
+    """Load model with appropriate quantization config and other optimizations."""
     if model_cfg.quantization == 4:
         quantization_config = BitsAndBytesConfig(load_in_4bit=True)
     elif model_cfg.quantization == 8:
@@ -55,17 +54,19 @@ def get_model(model_cfg: DictConfig):
     peft_config = LoraConfig(
         r=model_cfg.lora.peft_lora_r,
         lora_alpha=model_cfg.lora.peft_lora_alpha,
-        lora_dropout=0.075,
+        lora_dropout=model_cfg.lora.peft_lora_dropout,
         task_type="CAUSAL_LM",
-        target_modules = [
+        target_modules=[
             "proj_up",
+            "proj_up_gate",
             "proj_down",
+            "out_proj",
             "q_proj",
             "k_proj",
             "v_proj",
             "LinearHeadwiseExpand",
         ],
-        use_dora=True,
+        use_dora=model_cfg.lora.peft_use_dora,
     )
 
     if model_cfg.gradient_checkpointing:
